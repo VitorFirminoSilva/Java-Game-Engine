@@ -9,6 +9,8 @@ public class Image {
     private int[] pixels;
     private boolean alpha = false;
     
+    private int lightBlock = Light.NONE;
+    
     public Image(String path){
         BufferedImage image = null;
         
@@ -64,4 +66,13 @@ public class Image {
     public void setAlpha(boolean alpha) {
         this.alpha = alpha;
     }
+
+    public int getLightBlock() {
+        return lightBlock;
+    }
+
+    public void setLightBlock(int lightBlock) {
+        this.lightBlock = lightBlock;
+    }
+
 }

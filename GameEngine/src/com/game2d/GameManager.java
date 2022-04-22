@@ -6,19 +6,28 @@ import com.engine2d.GameContainer;
 import com.engine2d.Renderer;
 import com.engine2d.gfx.Image;
 import com.engine2d.gfx.ImageTile;
+import com.engine2d.gfx.Light;
 import java.awt.event.KeyEvent;
 
 public class GameManager extends AbstractGame{
 
-    private ImageTile image;
+    private Image image;
+    private Image image2;
     private SoundClip clip;
+    private Light light;
     
     float temp = 0;
     
     public GameManager(){
-      image = new ImageTile("/spriteSheet.png", 32, 21); 
+      image = new Image("/box.png");
+      image.setAlpha(true);
+      image.setLightBlock(Light.FULL);
+      image2 = new Image("/background.png");
+      image2.setAlpha(true);
       clip = new SoundClip("/audio/testeSound.wav"); 
       clip.setVolume(-10);
+      
+      light = new Light(100, 0xff00ff00);
     }
     
     @Override
@@ -38,8 +47,12 @@ public class GameManager extends AbstractGame{
 
     @Override
     public void render(GameContainer gameContainer, Renderer renderer) {
-        renderer.drawImageTile(image, gameContainer.getInput().getMouseX(), gameContainer.getInput().getMouseY(), (int)temp, 0);
-        renderer.fillRect(10, 10, 16, 16, 0xffffccff);
+        
+        renderer.setzDepth(0);
+        renderer.drawImage(image2,0,0);
+        renderer.drawImage(image, 100, 100);
+        renderer.drawLight(light, gameContainer.getInput().getMouseX(), gameContainer.getInput().getMouseY());
+
     }
     
     public static void main(String args[]){
